@@ -7,7 +7,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1_1", "Task1_1.csproj",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1_1Tests", "Task1_1Tests\Task1_1Tests.csproj", "{80C0FC22-E129-46E0-BD2F-5C1E6E55216A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_1", "Task2_1\Task2_1.csproj", "{6D37DB7D-079D-426D-8026-FF71B46E6B20}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1_2", "Task2_1\Task1_2.csproj", "{6D37DB7D-079D-426D-8026-FF71B46E6B20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSource1_2", "DataSource1_2\DataSource1_2.csproj", "{C78597EE-EC85-4FC5-95AE-B9AAA8F6454D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FigureHandler1_2", "FigureHandler\FigureHandler1_2.csproj", "{02E8A718-0E44-49F2-B3BD-07E1AA159312}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,6 +31,14 @@ Global
 		{6D37DB7D-079D-426D-8026-FF71B46E6B20}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6D37DB7D-079D-426D-8026-FF71B46E6B20}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6D37DB7D-079D-426D-8026-FF71B46E6B20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C78597EE-EC85-4FC5-95AE-B9AAA8F6454D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C78597EE-EC85-4FC5-95AE-B9AAA8F6454D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C78597EE-EC85-4FC5-95AE-B9AAA8F6454D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C78597EE-EC85-4FC5-95AE-B9AAA8F6454D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

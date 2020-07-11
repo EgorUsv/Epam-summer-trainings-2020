@@ -15,6 +15,12 @@
 
   <ItemGroup>
     <ProjectReference Include="..\DataSource1_2\DataSource1_2.csproj" />
+    <ProjectReference Include="..\FigureHandler\FigureHandler1_2.csproj" />
+    <ProjectReference Include="..\Task2_1\Task1_2.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="FiguresTests\" />
   </ItemGroup>
 
 </Project>

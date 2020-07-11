@@ -8,7 +8,7 @@ using Task2_1.Figures;
 
 namespace FigureHandler
 {
-    public class FigureHandler
+    public class FiguresHandler
     {
         public static Figure InitializeFigure(string name, double[] sides)
         {

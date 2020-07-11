@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataSource1_2", "DataSource
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FigureHandler1_2", "FigureHandler\FigureHandler1_2.csproj", "{02E8A718-0E44-49F2-B3BD-07E1AA159312}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task1_2Tests", "Task1_2Tests\Task1_2Tests.csproj", "{E107555B-F7E5-4121-AB2E-5DF5C59210FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{02E8A718-0E44-49F2-B3BD-07E1AA159312}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E107555B-F7E5-4121-AB2E-5DF5C59210FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E107555B-F7E5-4121-AB2E-5DF5C59210FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E107555B-F7E5-4121-AB2E-5DF5C59210FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E107555B-F7E5-4121-AB2E-5DF5C59210FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

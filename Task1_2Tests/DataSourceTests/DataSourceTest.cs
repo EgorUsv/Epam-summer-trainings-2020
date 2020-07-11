@@ -1,7 +1,4 @@
 ﻿using DataSource1_2;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 
 namespace Task1_2Tests.DataSourceTests

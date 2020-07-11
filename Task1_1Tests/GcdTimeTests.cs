@@ -1,8 +1,6 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Text;
 using TaskOne;
 
 namespace Task1_1Tests

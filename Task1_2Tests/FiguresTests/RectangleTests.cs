@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using System.Linq;
 using Task2_1.Figures;
 using Xunit;
 namespace Task1_2Tests.FiguresTests

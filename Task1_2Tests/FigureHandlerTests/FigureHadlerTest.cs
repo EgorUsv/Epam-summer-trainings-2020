@@ -1,11 +1,9 @@
 ﻿using DataSource1_2;
-using System;
+using FigureHandler;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Task2_1.Figures;
 using Xunit;
-using FigureHandler;
 
 namespace Task1_2Tests.FigureHandlerTests
 {

@@ -8,5 +8,6 @@ namespace Egor_Usachev_Task2
 {
     public class Class1
     {
+
     }
 }

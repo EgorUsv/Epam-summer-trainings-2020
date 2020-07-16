@@ -5,15 +5,15 @@ VisualStudioVersion = 16.0.30309.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_1", "Task2_1.csproj", "{9A18015B-FBA4-41C0-8932-5B9BB9898E3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_1Tests", "Task2_1Tests\Task2_1Tests.csproj", "{F1FC986C-3892-4B23-8434-533E601C0683}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2_1Tests", "Task2_1Tests\Task2_1Tests.csproj", "{F1FC986C-3892-4B23-8434-533E601C0683}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_2", "Task2_2\Task2_2.csproj", "{2AB2F3CA-66C8-402F-9824-FA8B6C8B05E8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_2Tests", "Task2_2Tests\Task2_2Tests.csproj", "{3BE83012-9CE4-441F-A39E-BF2510A99775}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2_2Tests", "Task2_2Tests\Task2_2Tests.csproj", "{3BE83012-9CE4-441F-A39E-BF2510A99775}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_3", "Task2_3\Task2_3.csproj", "{B8085A08-8546-421E-B59F-06EC1C4E4DD1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Task2_3Tests", "Task2_3Tests\Task2_3Tests.csproj", "{D65D74AA-8BDC-4BCE-9D38-0D4984713149}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Task2_3Tests", "Task2_3Tests\Task2_3Tests.csproj", "{D65D74AA-8BDC-4BCE-9D38-0D4984713149}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

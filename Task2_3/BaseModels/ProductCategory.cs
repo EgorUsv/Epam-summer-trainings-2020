@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Task2_3.BaseModels
 {
-    class ProductCategory
+    public class ProductCategory
     {
         public string CategoryName { get; private set; }
         public ProductCategory(string name)

@@ -7,7 +7,7 @@ using Task2_3.BaseModels;
 
 namespace Task2_3.Collections
 {
-    class ProductCollection
+    public class ProductCollection
     {
         private List<Product> Products { get; set; }
 

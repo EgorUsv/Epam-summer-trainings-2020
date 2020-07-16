@@ -18,22 +18,26 @@ namespace Task2_3.BaseModels
         }
         public static bool operator ==(ProductType left, ProductType right)
         {
-            if (left.Equals(right))
+            if ((object)left == null && (object)right == null)
+                return true;
+            if ((object)left != null && left.Equals(right))
                 return true;
             else
                 return false;
         }
         public static bool operator !=(ProductType left, ProductType right)
         {
-            if (!left.Equals(right))
-                return true;
-            else
+            if ((object)left == null && (object)right == null)
                 return false;
+            if ((object)left != null && left.Equals(right))
+                return false;
+            else
+                return true;
         }
         public override bool Equals(object obj)
         {
             if (obj is ProductType && (obj as ProductType)
-                .TypeName == TypeName)
+                ?.TypeName == TypeName)
                 return true;
             else
                 return false;

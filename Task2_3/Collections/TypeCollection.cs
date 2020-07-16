@@ -7,30 +7,30 @@ using Task2_3.BaseModels;
 
 namespace Task2_3.Collections
 {
-    class TypeCollection
+    public class TypeCollection
     {
-        private Dictionary<ProductType, ProductCollection> TypesAndProducts { get; set; }
-        public TypeCollection(Dictionary<ProductType, ProductCollection> pairs)
+        private Dictionary<ProductType, ProductCollection> TypeProducts { get; set; }
+        public TypeCollection(Dictionary<ProductType, ProductCollection> typeProducts)
         {
-            if (pairs != null)
-                TypesAndProducts = pairs;
+            if (typeProducts != null)
+                TypeProducts = typeProducts;
             else
                 throw new ArgumentNullException();
         }
         public TypeCollection()
         {
-            TypesAndProducts = new Dictionary<ProductType, ProductCollection>();
+            TypeProducts = new Dictionary<ProductType, ProductCollection>();
         }
         public void AddNewType(ProductType newType, ProductCollection products)
         {
-            if (!TypesAndProducts.ContainsKey(newType))
+            if (!TypeProducts.ContainsKey(newType))
             {
                 if (products == null)
-                    TypesAndProducts.Add(newType, new ProductCollection());
+                    TypeProducts.Add(newType, new ProductCollection());
                 else
                 {
                     products.FilterProducts(x => x.ProductType != newType);
-                    TypesAndProducts.Add(newType, products);
+                    TypeProducts.Add(newType, products);
                 }
             }
         }
@@ -38,29 +38,29 @@ namespace Task2_3.Collections
         {
             if (delType == null)
                 throw new ArgumentNullException();
-            if (TypesAndProducts.TryGetValue(delType, out ProductCollection products)
+            if (TypeProducts.TryGetValue(delType, out ProductCollection products)
                 && products.GetProductsCopy().Count == 0)
-                TypesAndProducts.Remove(delType);
+                TypeProducts.Remove(delType);
         }
         public int GetTypesCount()
         {
-            return TypesAndProducts.Count;
+            return TypeProducts.Count;
         }
         public override bool Equals(object obj)
         {
             if (obj is TypeCollection && Enumerable
-                .SequenceEqual((obj as TypeCollection).TypesAndProducts, TypesAndProducts))
+                .SequenceEqual((obj as TypeCollection).TypeProducts, TypeProducts))
                 return true;
             else
                 return false;
         }
         public override int GetHashCode()
         {
-            return TypesAndProducts.GetHashCode();
+            return TypeProducts.GetHashCode();
         }
         public bool SequenceEqual(Dictionary<ProductType, ProductCollection> obj)
         {
-            if (Enumerable.SequenceEqual(TypesAndProducts, obj))
+            if (Enumerable.SequenceEqual(TypeProducts, obj))
                 return true;
             else
                 return false;

@@ -45,7 +45,7 @@ namespace Task3.Shapes
 
         public override string ToString()
         {
-            return GetType().FullName + " " + Sides[0] + " " +
+            return GetType().AssemblyQualifiedName + " " + Sides[0] + " " +
                 Sides[1] + " " + Sides[2];
         }
     }

@@ -24,7 +24,7 @@ namespace Task3.Shapes
         }
         public override string ToString()
         {
-            return GetType().FullName + " " + Side;
+            return GetType().AssemblyQualifiedName + " " + Side;
         }
     }
 }

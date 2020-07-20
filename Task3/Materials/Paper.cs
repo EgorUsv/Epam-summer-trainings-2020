@@ -33,7 +33,7 @@ namespace Task3.Materials
 
         public override string ToString()
         {
-            return GetType().FullName + " " + (CanBePainted ? 1 : 0) + 
+            return GetType().AssemblyQualifiedName + " " + (CanBePainted ? 1 : 0) + 
                 " " + (int)Colour;
         }
     }

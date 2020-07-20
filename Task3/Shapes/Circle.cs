@@ -40,7 +40,7 @@ namespace Task3.Shapes
 
         public override string ToString()
         {
-            return GetType().FullName + " " + Radius;
+            return GetType().AssemblyQualifiedName + " " + Radius;
         }
     }
 }

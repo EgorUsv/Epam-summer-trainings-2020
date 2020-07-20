@@ -25,10 +25,10 @@ namespace Converter.Parser
         private static BaseShape GetShape(string info)
         {
             List<double> sides = new List<double>();
-            string typeName = Regex.Match(info, @"^\S*").Value;
+            string typeName = Regex.Match(info, @"^(\S*\s){4}\S*").Value;
             foreach (Match x in Regex.Matches(info.Substring(typeName.Length), @"(\d*[\,\.]\d*)|(\d+)"))
                 sides.Add(double.Parse(x.Value));
-            Type type = Type.GetType(typeName, false, true);
+            Type type = Type.GetType(typeName, false);
             if (sides.Count >= 2)
                 return (BaseShape)Activator.CreateInstance(type, sides.ToArray());
             else
@@ -36,7 +36,7 @@ namespace Converter.Parser
         }
         private static IMaterial GetMaterial(string info)
         {
-            string materialName = Regex.Match(info, @"^\S*").Value;
+            string materialName = Regex.Match(info, @"^(\S*\s){4}\S*").Value;
             var matches = Regex.Matches(info.Substring(materialName.Length), @"(\d+)");
             Type type = Type.GetType(materialName, false, true);
             if (matches.Count == 1)

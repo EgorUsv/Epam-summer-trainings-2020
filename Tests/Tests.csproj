@@ -19,8 +19,4 @@
     <ProjectReference Include="..\Task3\Model.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="ModelTests\" />
-  </ItemGroup>
-
 </Project>

@@ -13,6 +13,7 @@ namespace DataSource.XmlClasses
             xmlReader.MoveToContent();
             string result = xmlReader.ReadContentAsString();
             xmlReader.Close();
+            xmlReader.Dispose();
             return result;
         }
     }

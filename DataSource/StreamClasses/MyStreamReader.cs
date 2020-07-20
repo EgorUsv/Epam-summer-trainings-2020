@@ -12,6 +12,7 @@ namespace DataSource.StreamClasses
             using StreamReader streamReader = new StreamReader(Path);
             string result = streamReader.ReadToEnd();
             streamReader.Close();
+            streamReader.Dispose();
             return result;
         }
     }

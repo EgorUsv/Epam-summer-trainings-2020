@@ -12,6 +12,7 @@ namespace DataSource.StreamClasses
             using StreamWriter streamWriter = new StreamWriter(Path);
             streamWriter.Write(data);
             streamWriter.Close();
+            streamWriter.Dispose();
         }
     }
 }

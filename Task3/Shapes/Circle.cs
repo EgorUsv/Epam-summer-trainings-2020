@@ -1,13 +1,11 @@
-﻿using Egor_Usachev_Task3.AbstractClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Task3.AbstractClasses;
 
-namespace Egor_Usachev_Task3.Shapes
+namespace Task3.Shapes
 {
-    class Circle : BaseShape
+    public class Circle : BaseShape
     {
         public double Radius { get; private set; }
         public Circle(double radius)

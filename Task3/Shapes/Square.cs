@@ -1,11 +1,8 @@
-﻿using Egor_Usachev_Task3.AbstractClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
-namespace Egor_Usachev_Task3.Shapes
+namespace Task3.Shapes
 {
     public class Square : Rectangle
     {

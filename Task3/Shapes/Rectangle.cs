@@ -1,11 +1,10 @@
-﻿using Egor_Usachev_Task3.AbstractClasses;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using Task3.AbstractClasses;
 
-namespace Egor_Usachev_Task3.Shapes
+namespace Task3.Shapes
 {
     public class Rectangle : BaseShape
     {
@@ -15,7 +14,7 @@ namespace Egor_Usachev_Task3.Shapes
             if (sides != null && sides.Length >= 2)
                 Sides = sides.Take(2).ToArray();
             else
-                throw new ArgumentException("Array length is less than 2.");
+                throw new ArgumentException("Array should have positive values (>=2).");
         }
         public override double Area()
         {

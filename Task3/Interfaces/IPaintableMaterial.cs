@@ -5,13 +5,13 @@ using Task3.Colors;
 
 namespace Task3.Interfaces
 {
-    public interface IPaintableMaterial
+    public interface IPaintableMaterial : IMaterial
     {
-        public MaterialColors Color { get; set; }
-        public void PaintMaterial(MaterialColors color)
+        public MaterialColors Colour { get; set; }
+        public void PaintMaterial(MaterialColors colour)
         {
-            if (Color == MaterialColors.None)
-                Color = color;
+            if (Colour == MaterialColors.None)
+                Colour = colour;
             else
                 throw new Exception("This figure is already painted.");
         }

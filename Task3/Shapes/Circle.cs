@@ -5,9 +5,19 @@ using Task3.AbstractClasses;
 
 namespace Task3.Shapes
 {
+    /// <summary>
+    /// Represents a circle type shape.
+    /// </summary>
     public class Circle : BaseShape
     {
+        /// <summary>
+        /// Stores the radius of the circle.
+        /// </summary>
         public double Radius { get; private set; }
+        /// <summary>
+        /// Initializes an object of type Circle.
+        /// </summary>
+        /// <param name="sides"></param>
         public Circle(double radius)
         {
             if (radius > 0)

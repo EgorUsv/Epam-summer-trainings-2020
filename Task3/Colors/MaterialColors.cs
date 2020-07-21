@@ -4,6 +4,10 @@ using System.Text;
 
 namespace Task3.Colors
 {
+    /// <summary>
+    /// Contains the colors the material may have, 
+    /// including colorless.
+    /// </summary>
     public enum MaterialColors
     {
         None,

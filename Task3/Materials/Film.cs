@@ -6,6 +6,9 @@ using Task3.Interfaces;
 
 namespace Task3.Materials
 {
+    /// <summary>
+    /// Represents a Film material.
+    /// </summary>
     public class Film : BaseFunctions, IMaterial
     {
         public bool CanBePainted => false;
@@ -25,7 +28,8 @@ namespace Task3.Materials
 
         public override string ToString()
         {
-            return GetType().AssemblyQualifiedName + " " + (CanBePainted ? 1 : 0);
+            return GetType().AssemblyQualifiedName + " " + 
+                (CanBePainted ? 1 : 0);
         }
     }
 }

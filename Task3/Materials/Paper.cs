@@ -7,12 +7,18 @@ using Task3.Interfaces;
 
 namespace Task3.Materials
 {
+    /// <summary>
+    /// Represents a Paper material.
+    /// </summary>
     public class Paper : BaseFunctions, IPaintableMaterial
     {
         public bool CanBePainted => true;
 
         public MaterialColors Colour { get; set; }
-
+        /// <summary>
+        /// Initializes a Paper object.
+        /// </summary>
+        /// <param name="colour"></param>
         public Paper(MaterialColors colour)
         {
             Colour = colour;

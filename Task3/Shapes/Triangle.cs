@@ -6,9 +6,19 @@ using Task3.AbstractClasses;
 
 namespace Task3.Shapes
 {
+    /// <summary>
+    /// Represents a triangle type shape.
+    /// </summary>
     public class Triangle : BaseShape
     {
+        /// <summary>
+        /// Stores the sides of the triangle.
+        /// </summary>
         public double[] Sides { get; private set; }
+        /// <summary>
+        /// Initializes an object of type Triangle.
+        /// </summary>
+        /// <param name="side"></param>
         public Triangle(double[] sides)
         {
             if (sides != null && sides.Length >= 3)

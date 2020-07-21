@@ -6,9 +6,19 @@ using Task3.AbstractClasses;
 
 namespace Task3.Shapes
 {
+    /// <summary>
+    /// Represents a rectangle type shape.
+    /// </summary>
     public class Rectangle : BaseShape
     {
+        /// <summary>
+        /// Stores the sides of the rectangle.
+        /// </summary>
         public double[] Sides { get; private set; } = new double[2];
+        /// <summary>
+        /// Initializes an object of type Rectangle.
+        /// </summary>
+        /// <param name="sides"></param>
         public Rectangle(double[] sides)
         {
             if (sides != null && sides.Length >= 2)

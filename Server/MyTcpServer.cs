@@ -10,13 +10,13 @@ using System.Threading.Tasks;
 namespace Server
 {
     public delegate void MessageWork(MessageEventArgs args);
-    public class TcpServer
+    public class MyTcpServer
     {
         private event MessageWork ReceiveMessage;
         private Dictionary<string,TcpClient> Clients { get; } = new Dictionary<string, TcpClient>();
         CancellationTokenSource StopConnectionListener { get; } = new CancellationTokenSource();
         private TcpListener Server { get; }
-        public TcpServer(IPAddress ip, int port)
+        public MyTcpServer(IPAddress ip, int port)
         {
             if (ip != null)
                 Server = new TcpListener(ip, port);

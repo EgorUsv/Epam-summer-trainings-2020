@@ -9,7 +9,7 @@ namespace Client
     public delegate void MessageTranslator(string message);
     public class MyTcpClient
     {
-        public event MessageTranslator ReceiveMessage;
+        private event MessageTranslator ReceiveMessage;
         private string Name { get; }
         CancellationTokenSource StopMessageListener { get; } = new CancellationTokenSource();
         TcpClient Client { get; set; }

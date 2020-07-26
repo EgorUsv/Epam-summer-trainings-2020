@@ -104,7 +104,7 @@ namespace Server
             }
             catch { }
         }
-        public async void SendBroadCastMessage(string message)
+        public async void SendBroadcastMessage(string message)
         {
             await Task.Run(() =>
             {
@@ -138,8 +138,8 @@ namespace Server
             StopConnectionListener.Cancel();
             foreach (var client in Clients)
                 client.Value.Close();
-            UnsubscribeAll();
             Server.Stop();
+            UnsubscribeAll();
         }
     }
 }

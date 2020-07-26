@@ -23,17 +23,18 @@ namespace Server
             else
                 throw new ArgumentNullException();
         }
-        public void StartServer()
+        public bool StartServer()
         {
             try
             {
                 Server.Start();
                 Thread listener = new Thread(new ParameterizedThreadStart(ListenConnections));
                 listener.Start(StopConnectionListener.Token);
+                return true;
             }
             catch
             {
-                Server.Stop();
+                return false;
             }
         }
         private void ListenConnections(object obj)

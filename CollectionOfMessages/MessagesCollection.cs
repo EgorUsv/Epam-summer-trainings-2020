@@ -7,7 +7,7 @@ namespace CollectionOfMessages
 {
     public static class MessagesCollection<T>
     {
-        private static List<T> Collection { get; }
+        private static List<T> Collection { get; } = new List<T>();
         public static MessageWork AddMessage = (message) =>
         {
             if (message != null)
@@ -16,6 +16,12 @@ namespace CollectionOfMessages
         public static int GetCountOfMessages()
         {
             return Collection.Count;
+        }
+        public static string ElementAt(int index)
+        {
+            if (index < Collection.Count)
+                return Collection[index].ToString();
+            return null;
         }
     }
 }

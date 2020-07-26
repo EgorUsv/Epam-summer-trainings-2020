@@ -6,13 +6,13 @@ using System.Threading;
 
 namespace Client
 {
-    public delegate string MessageTranslator(string message);
+    public delegate void MessageTranslator(string message);
     public class MyTcpClient
     {
         public event MessageTranslator ReceiveMessage;
         private string Name { get; }
         CancellationTokenSource StopMessageListener { get; } = new CancellationTokenSource();
-        TcpClient Client { get; }
+        TcpClient Client { get; set; }
         public MyTcpClient(string name)
         {
             if (name != null)
@@ -20,17 +20,19 @@ namespace Client
             else
                 throw new ArgumentNullException();
         }
-        public void ConnectToServer(IPAddress ip,int port)
+        public bool ConnectToServer(IPAddress ip,int port)
         {
             try
             {
+                Client = new TcpClient();
                 Client.Connect(ip, port);
                 SendMessage(Name);
                 new Thread(() => MessageListener(StopMessageListener.Token)).Start();
+                return true;
             }
-            catch
+            catch(SocketException)
             {
-                Client.Close();
+                return false;
             }
         }
         public void SendMessage(string message)
@@ -43,14 +45,14 @@ namespace Client
             var token = (CancellationToken)obj;
             while(!token.IsCancellationRequested)
             {
-                if(Client.ReceiveBufferSize > 0)
+                if(Client.GetStream().DataAvailable)
                 {
                     message.Clear();
-                    byte[] bytes = new byte[Client.ReceiveBufferSize];
-                    Client.GetStream().Read(bytes, 0, Client.ReceiveBufferSize);
+                    byte[] bytes = new byte[Client.Available];
+                    Client.GetStream().Read(bytes, 0, Client.Available);
                     message.Append(Encoding.UTF8.GetString(bytes));
                 }
-                if (message.Length > 0)
+                if(message.Length > 0)
                     ReceiveMessage?.Invoke(message.ToString());
             }
         }

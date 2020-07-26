@@ -3,21 +3,27 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace MessageHandler
+namespace Client.Handlers
 {
-    public class HandlerClass
+    public static class MessageConverter
     {
+        public static string LastConvertedMessage { get; set; }
         public static MessageTranslator StringConveter = delegate (string message)
         {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < message.Length; i++)
-                if (message[i] >= 65 && message[i] <= 90 || message[i] >= 97 && message[i] <= 122)
+            {
+                if (LatToRus.ContainsKey(message[i]))
                     result.Append(LatToRus[message[i]]);
                 else
+                if (RusToLatin.ContainsKey(message[i]))
                     result.Append(RusToLatin[message[i]]);
-            return result.ToString();
+                else
+                    result.Append(message[i]);
+            }
+            LastConvertedMessage = result.ToString();
         };
-        public static Dictionary<char, string> LatToRus = new Dictionary<char, string>()
+        static Dictionary<char, string> LatToRus = new Dictionary<char, string>()
         {
             {'A',"А"},  {'a', "а" },
             {'B',"Б" }, {'b', "б" },
@@ -46,7 +52,7 @@ namespace MessageHandler
             {'Y', "У"}, {'y', "у" },
             {'Z', "З"}, {'z', "з" }
         };
-        public static Dictionary<char, string> RusToLatin = new Dictionary<char, string>()
+        static Dictionary<char, string> RusToLatin = new Dictionary<char, string>()
         {
             {'А',"A"},  {'а',"a"},
             {'Б',"B"},  {'б',"b"},

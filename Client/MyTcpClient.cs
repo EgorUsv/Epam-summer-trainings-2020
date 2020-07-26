@@ -6,10 +6,10 @@ using System.Threading;
 
 namespace Client
 {
-    public delegate string MessageHandler(string message);
+    public delegate string MessageTranslator(string message);
     public class MyTcpClient
     {
-        public event MessageHandler ReceiveMessage;
+        public event MessageTranslator ReceiveMessage;
         private string Name { get; }
         CancellationTokenSource StopMessageListener { get; } = new CancellationTokenSource();
         TcpClient Client { get; }
@@ -54,18 +54,18 @@ namespace Client
                     ReceiveMessage?.Invoke(message.ToString());
             }
         }
-        public void SubscribeToReceiveMessage(MessageHandler subscriber)
+        public void SubscribeToReceiveMessage(MessageTranslator subscriber)
         {
             ReceiveMessage += subscriber;
         }
-        public void UnsubscribeFromReceiveMessage(MessageHandler subscriber)
+        public void UnsubscribeFromReceiveMessage(MessageTranslator subscriber)
         {
             ReceiveMessage -= subscriber;
         }
         private void UnsubcribeAll()
         {
             foreach (Delegate handler in ReceiveMessage.GetInvocationList())
-                ReceiveMessage -= (MessageHandler)handler;
+                ReceiveMessage -= (MessageTranslator)handler;
         }
         public void CloseConnection()
         {

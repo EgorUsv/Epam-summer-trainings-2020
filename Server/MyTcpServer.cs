@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Server
 {
-    public delegate void MessageWork(MessageEventArgs args);
+    public delegate void MessageWork(object args);
     public class MyTcpServer
     {
         private event MessageWork ReceiveMessage;

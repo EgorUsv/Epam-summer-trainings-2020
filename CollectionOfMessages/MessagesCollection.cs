@@ -1,16 +1,17 @@
-﻿using System;
+﻿using Server;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace Server.Messages
+namespace CollectionOfMessages
 {
-    public static class MessagesCollection
+    public static class MessagesCollection<T>
     {
-        private static List<MessageEventArgs> Collection { get; }
+        private static List<T> Collection { get; }
         public static MessageWork AddMessage = (message) =>
         {
             if (message != null)
-                Collection.Add(message);
+                Collection.Add((T)message);
         };
         public static int GetCountOfMessages()
         {

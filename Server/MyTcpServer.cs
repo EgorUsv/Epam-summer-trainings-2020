@@ -28,8 +28,7 @@ namespace Server
             try
             {
                 Server.Start();
-                Thread listener = new Thread(new ParameterizedThreadStart(ListenConnections));
-                listener.Start(StopConnectionListener.Token);
+                new Task(() => ListenConnections(StopConnectionListener.Token)).Start();
                 return true;
             }
             catch
@@ -104,20 +103,17 @@ namespace Server
             }
             catch { }
         }
-        public async void SendBroadcastMessage(string message)
+        public void SendBroadcastMessage(string message)
         {
-            await Task.Run(() =>
+            var clients = Clients.Values;
+            foreach (TcpClient client in clients)
             {
-                var clients = Clients.Values;
-                foreach (TcpClient client in clients)
+                try
                 {
-                    try
-                    {
-                        client.GetStream().Write(Encoding.UTF8.GetBytes(message));
-                    }
-                    catch { }
+                    client.GetStream().Write(Encoding.UTF8.GetBytes(message));
                 }
-            });
+                catch { }
+            }
         }
         public void SubscribeToReceiveMessage(MessageWork subscriber)
         {

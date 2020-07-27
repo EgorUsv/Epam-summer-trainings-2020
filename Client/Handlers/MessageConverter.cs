@@ -7,7 +7,7 @@ namespace Client.Handlers
 {
     public static class MessageConverter
     {
-        public static string LastConvertedMessage { get; set; }
+        public static List<string> ConvertedMessages = new List<string>();
         public static MessageTranslator StringConveter = delegate (string message)
         {
             StringBuilder result = new StringBuilder();
@@ -21,7 +21,7 @@ namespace Client.Handlers
                 else
                     result.Append(message[i]);
             }
-            LastConvertedMessage = result.ToString();
+            ConvertedMessages.Add(result.ToString());
         };
         static Dictionary<char, string> LatToRus = new Dictionary<char, string>()
         {

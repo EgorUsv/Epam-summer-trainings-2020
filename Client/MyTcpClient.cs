@@ -45,9 +45,9 @@ namespace Client
             var token = (CancellationToken)obj;
             while(!token.IsCancellationRequested)
             {
-                if(Client.GetStream().DataAvailable)
+                message.Clear();
+                if (Client.GetStream().DataAvailable)
                 {
-                    message.Clear();
                     byte[] bytes = new byte[Client.Available];
                     Client.GetStream().Read(bytes, 0, Client.Available);
                     message.Append(Encoding.UTF8.GetString(bytes));

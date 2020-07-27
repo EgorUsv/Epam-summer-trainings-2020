@@ -1,20 +1,20 @@
-п»ї
 using Client;
 using Client.Handlers;
 using CollectionOfMessages;
+using NUnit.Framework;
 using Server;
 using Server.Messages;
+using System;
 using System.Net;
 using System.Net.Sockets;
 using System.Threading;
-using Xunit;
 
-namespace Tests
+namespace Tests2
 {
-    public class ServerTests
+    public class Tests
     {
         public const int TimeDelay = 5;
-        [Fact]
+        [Test,Order(1)]
         public void ReceiveMessageTest()
         {
             MyTcpServer privateServer = new MyTcpServer(IPAddress.Loopback, 100);
@@ -28,7 +28,7 @@ namespace Tests
             Thread.Sleep(TimeDelay);
             var expected = new MessageEventArgs("NewUser1", "TestMessage1").ToString();
             var actual = MessagesCollection<MessageEventArgs>.ElementAt(0);
-            Assert.Equal(expected, actual);
+            Assert.AreEqual(expected, actual);
 
             MyTcpClient client2 = new MyTcpClient("NewUser2");
             client2.ConnectToServer(IPAddress.Loopback, 100);
@@ -37,10 +37,10 @@ namespace Tests
             Thread.Sleep(TimeDelay);
             var expected2 = new MessageEventArgs("NewUser2", "TestMessage2").ToString();
             var actual2 = MessagesCollection<MessageEventArgs>.ElementAt(1);
-            Assert.Equal(expected2, actual2);
+            Assert.AreEqual(expected2, actual2);
             privateServer.StopServer();
         }
-        [Fact]
+        [Test,Order(2)]
         public void StopServerTest()
         {
             MyTcpServer server = new MyTcpServer(IPAddress.Loopback, 200);
@@ -58,7 +58,7 @@ namespace Tests
                 Assert.True(true);
             }
         }
-        [Fact]
+        [Test,Order(3)]
         public void SendMessageTest()
         {
             MyTcpServer server = new MyTcpServer(IPAddress.Loopback, 300);
@@ -70,7 +70,28 @@ namespace Tests
             Thread.Sleep(TimeDelay);
             server.SendMessageToClient("Client1", "Test");
             Thread.Sleep(TimeDelay);
-            Assert.Equal("РўРµСЃС‚", MessageConverter.LastConvertedMessage);
+            Assert.AreEqual("Тест", MessageConverter.ConvertedMessages[0]);
+            server.StopServer();
+        }
+        [Test, Order(4)]
+        public void SendBroadcastMessageTest()
+        {
+            MyTcpServer server = new MyTcpServer(IPAddress.Loopback, 400);
+            server.StartServer();
+            Thread.Sleep(TimeDelay);
+            MyTcpClient tcpClient1 = new MyTcpClient("Client1");
+            tcpClient1.SubscribeToReceiveMessage(MessageConverter.StringConveter);
+            Thread.Sleep(TimeDelay);
+            MyTcpClient tcpClient2 = new MyTcpClient("Client2");
+            tcpClient2.SubscribeToReceiveMessage(MessageConverter.StringConveter);
+            tcpClient2.ConnectToServer(IPAddress.Loopback, 400);
+            tcpClient1.ConnectToServer(IPAddress.Loopback, 400);
+            Thread.Sleep(TimeDelay);
+            server.SendBroadcastMessage("Test");
+            Thread.Sleep(TimeDelay);
+            Assert.AreEqual("Тест", MessageConverter.ConvertedMessages[0]);
+            Thread.Sleep(TimeDelay * 9);
+            Assert.AreEqual("Тест", MessageConverter.ConvertedMessages[1]);
         }
     }
 }

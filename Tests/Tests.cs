@@ -90,7 +90,7 @@ namespace Tests2
             server.SendBroadcastMessage("Test");
             Thread.Sleep(TimeDelay);
             Assert.AreEqual("Тест", MessageConverter.ConvertedMessages[0]);
-            Thread.Sleep(TimeDelay * 9);
+            Thread.Sleep(TimeDelay);
             Assert.AreEqual("Тест", MessageConverter.ConvertedMessages[1]);
         }
     }

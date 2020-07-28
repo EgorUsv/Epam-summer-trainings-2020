@@ -5,16 +5,25 @@ using System.Text;
 
 namespace Client.Handlers
 {
+    /// <summary>
+    /// Handles receiving messages from clients.
+    /// </summary>
     public static class MessageConverter
     {
+        /// <summary>
+        /// Contains a list of all processed messages.
+        /// </summary>
         public static List<string> ConvertedMessages = new List<string>();
+        /// <summary>
+        /// Message handler.
+        /// </summary>
         public static MessageTranslator StringConveter = delegate (string message)
         {
             StringBuilder result = new StringBuilder();
             for (int i = 0; i < message.Length; i++)
             {
-                if (LatToRus.ContainsKey(message[i]))
-                    result.Append(LatToRus[message[i]]);
+                if (LatinToRus.ContainsKey(message[i]))
+                    result.Append(LatinToRus[message[i]]);
                 else
                 if (RusToLatin.ContainsKey(message[i]))
                     result.Append(RusToLatin[message[i]]);
@@ -23,7 +32,10 @@ namespace Client.Handlers
             }
             ConvertedMessages.Add(result.ToString());
         };
-        static Dictionary<char, string> LatToRus = new Dictionary<char, string>()
+        /// <summary>
+        /// Dictionary for translation from Latin into Russian.
+        /// </summary>
+        static Dictionary<char, string> LatinToRus = new Dictionary<char, string>()
         {
             {'A',"А"},  {'a', "а" },
             {'B',"Б" }, {'b', "б" },
@@ -52,6 +64,9 @@ namespace Client.Handlers
             {'Y', "У"}, {'y', "у" },
             {'Z', "З"}, {'z', "з" }
         };
+        /// <summary>
+        /// Dictionary for translation from Russian into Latin.
+        /// </summary>
         static Dictionary<char, string> RusToLatin = new Dictionary<char, string>()
         {
             {'А',"A"},  {'а',"a"},

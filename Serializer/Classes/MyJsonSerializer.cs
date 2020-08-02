@@ -1,11 +1,9 @@
 ﻿using Serializer.AbstractClasses;
 using Serializer.Interfaces;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Json;
-using System.Text;
 
 namespace Serializer.Classes
 {
@@ -29,6 +27,22 @@ namespace Serializer.Classes
             }
         }
 
+        public override bool Deserialize(out ICollection<T> data)
+        {
+            try
+            {
+                using Stream stream = new FileStream(Path, FileMode.OpenOrCreate);
+                data = (List<T>)new DataContractJsonSerializer(typeof(List<T>))
+                    .ReadObject(stream);
+                return true;
+            }
+            catch (SerializationException)
+            {
+                data = null;
+                return false;
+            }
+        }
+
         public override void Serialize(T data)
         {
             using Stream stream = new FileStream(Path, FileMode.OpenOrCreate);
@@ -38,7 +52,7 @@ namespace Serializer.Classes
         public override void Serialize(ICollection<T> collection)
         {
             using Stream stream = new FileStream(Path, FileMode.OpenOrCreate);
-            new DataContractJsonSerializer(typeof(T)).WriteObject(stream, collection);
+            new DataContractJsonSerializer(typeof(List<T>)).WriteObject(stream, collection);
         }
     }
 }

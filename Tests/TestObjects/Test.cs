@@ -1,10 +1,9 @@
-﻿using Binary_Tree.AbstractClasses;
+﻿
 using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Binary_Tree.TreeInfo
+namespace Tests.TestObjects
 {
+    [Serializable]
     public class Test : BaseFunctions
     {
         public string TestName { get; set; }
@@ -21,14 +20,14 @@ namespace Binary_Tree.TreeInfo
 
         public override int GetHashCode()
         {
-            return GetStringHashCode(TestName, 3) ^ 
+            return GetStringHashCode(TestName, 3) ^
                 DateOfCompletion.GetHashCode() ^ Mark;
         }
 
         public override bool Equals(object obj)
         {
-            if (obj is Test && (obj as Test).TestName == TestName && 
-                (obj as Test).DateOfCompletion == DateOfCompletion && 
+            if (obj is Test && (obj as Test).TestName == TestName &&
+                (obj as Test).DateOfCompletion == DateOfCompletion &&
                 (obj as Test).Mark == Mark)
                 return true;
             else

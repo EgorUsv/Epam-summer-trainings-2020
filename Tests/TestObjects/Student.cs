@@ -1,12 +1,12 @@
-﻿using Binary_Tree.AbstractClasses;
+﻿
+using Serializer.Interfaces;
 using System;
-using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
-using System.Text;
 
-namespace Binary_Tree.TreeInfo
+namespace Tests.TestObjects
 {
-    public class Student : BaseFunctions, IComparable<Student>
+    [Serializable]
+    public class Student : BaseFunctions, IComparable<Student>, ISerialize
     {
         public string Patronymic { get; set; }
         public string Surname { get; set; }

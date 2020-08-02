@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Serializer.Interfaces
+﻿namespace Serializer.Interfaces
 {
     public interface ISerialize
     { }

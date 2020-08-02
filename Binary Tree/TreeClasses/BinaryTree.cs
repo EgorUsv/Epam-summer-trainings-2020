@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Binary_Tree.TreeClasses
 {
@@ -63,7 +62,7 @@ namespace Binary_Tree.TreeClasses
                 if (currentNode.Left == null && currentNode.Right != null)
                     RemoveRightSubtree(previousNode, currentNode);
                 if (currentNode.Left != null && currentNode.Right == null)
-                    RemoveLeftSubtree(previousNode,currentNode);
+                    RemoveLeftSubtree(previousNode, currentNode);
                 if (currentNode.Left != null && currentNode.Right != null)
                     RemoveTwoSubtrees(previousNode, currentNode);
                 else
@@ -98,7 +97,7 @@ namespace Binary_Tree.TreeClasses
             if (prevNode.Left.Value.Equals(currNode.Value))
                 prevNode.Left = currNode.Right;
         }
-        private void RemoveTwoSubtrees(Node<T> prevNode,Node<T> currNode)
+        private void RemoveTwoSubtrees(Node<T> prevNode, Node<T> currNode)
         {
             if (currNode.Right.Left != null)
             {

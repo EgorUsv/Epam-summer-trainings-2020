@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
-namespace Binary_Tree.AbstractClasses
+namespace Tests.TestObjects
 {
+    [Serializable]
     public abstract class BaseFunctions
     {
         protected int GetStringHashCode(string str, int shift = 0)

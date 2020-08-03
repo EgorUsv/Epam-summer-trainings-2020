@@ -7,12 +7,19 @@ using System.Runtime.Serialization.Formatters.Binary;
 
 namespace Serializer.Classes
 {
+    /// <summary>
+    /// Represents a class for serializing objects to a binary file.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MyBinarySerializer<T> : BaseSerializer<T>
         where T : class, ISerialize
     {
+        /// <summary>
+        /// Initializes the object.
+        /// </summary>
+        /// <param name="path"></param>
         public MyBinarySerializer(string path) : base(path)
         { }
-
         public override bool Deserialize(out T data)
         {
             try

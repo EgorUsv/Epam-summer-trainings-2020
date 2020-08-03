@@ -7,9 +7,17 @@ using System.Runtime.Serialization.Json;
 
 namespace Serializer.Classes
 {
+    /// <summary>
+    /// Represents a class for serializing objects to a json file.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MyJsonSerializer<T> : BaseSerializer<T>
         where T : class, ISerialize
     {
+        /// <summary>
+        /// Initializes the object.
+        /// </summary>
+        /// <param name="path"></param>
         public MyJsonSerializer(string path) : base(path)
         { }
         public override bool Deserialize(out T data)

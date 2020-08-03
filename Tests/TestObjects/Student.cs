@@ -35,8 +35,8 @@ namespace Tests.TestObjects
         }
         public override int GetHashCode()
         {
-            return GetStringHashCode(Surname, 3) ^ GetStringHashCode(Name, 2) ^
-                GetStringHashCode(Patronymic);
+            return GetStringHashCode(Surname, 4) ^ GetStringHashCode(Name, 3) ^
+                GetStringHashCode(Patronymic,2) ^ TestInfo.GetHashCode();
         }
         public int CompareTo([AllowNull] Student other)
         {

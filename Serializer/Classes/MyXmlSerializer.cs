@@ -7,9 +7,17 @@ using System.Xml.Serialization;
 
 namespace Serializer.Classes
 {
+    /// <summary>
+    /// Represents a class for serializing objects to a xml file.
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     public class MyXmlSerializer<T> : BaseSerializer<T>
         where T : class, ISerialize
     {
+        /// <summary>
+        /// Initializes the object.
+        /// </summary>
+        /// <param name="path"></param>
         public MyXmlSerializer(string path) : base(path)
         { }
         public override bool Deserialize(out T data)

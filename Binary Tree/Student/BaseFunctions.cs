@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Tests.TestObjects
+namespace Binary_Tree.Student
 {
     [Serializable]
     public abstract class BaseFunctions

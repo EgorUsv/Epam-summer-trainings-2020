@@ -3,7 +3,7 @@ using Serializer.Interfaces;
 using System;
 using System.Diagnostics.CodeAnalysis;
 
-namespace Tests.TestObjects
+namespace Binary_Tree.Student
 {
     [Serializable]
     public class Student : BaseFunctions, IComparable<Student>, ISerialize

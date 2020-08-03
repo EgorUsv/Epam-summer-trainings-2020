@@ -1,7 +1,6 @@
-﻿
-using System;
+﻿using System;
 
-namespace Tests.TestObjects
+namespace Binary_Tree.Student
 {
     [Serializable]
     public class Test : BaseFunctions

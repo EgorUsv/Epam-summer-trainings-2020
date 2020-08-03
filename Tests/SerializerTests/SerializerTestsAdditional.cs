@@ -1,7 +1,8 @@
 ﻿
+using Binary_Tree.Student;
 using Serializer.Classes;
 using System.Collections.Generic;
-using Tests.TestObjects;
+using Tests.BinaryTreeTest;
 
 namespace Tests.Serializer
 {

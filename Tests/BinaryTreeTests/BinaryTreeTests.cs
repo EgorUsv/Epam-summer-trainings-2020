@@ -1,10 +1,10 @@
 using Binary_Tree.Deserializer;
+using Binary_Tree.Student;
 using Binary_Tree.TreeClasses;
 using Serializer.Classes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Tests.TestObjects;
 using Xunit;
 
 namespace Tests.BinaryTreeTest

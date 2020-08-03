@@ -1,10 +1,10 @@
 ﻿
+using Binary_Tree.Student;
 using Binary_Tree.TreeClasses;
 using System;
 using System.Collections.Generic;
-using Tests.TestObjects;
 
-namespace Tests
+namespace Tests.BinaryTreeTest
 {
     public partial class BinaryTreeTests
     {

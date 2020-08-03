@@ -7,7 +7,7 @@ using System.Linq;
 using Tests.TestObjects;
 using Xunit;
 
-namespace Tests
+namespace Tests.BinaryTreeTest
 {
     public partial class BinaryTreeTests
     {

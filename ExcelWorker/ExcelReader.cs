@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace ExcelWorker
@@ -23,9 +24,13 @@ namespace ExcelWorker
                         var table = new DataTable(sheet.Name);
                         foreach (var col in sheet.Tables[0].Columns)
                             table.Columns.Add(col.Name);
-                        var rowIndex = 0;
-                        while (rowIndex < sheet.Dimension.Rows)
-                            table.Rows.Add(sheet.Cells[rowIndex, rowIndex, rowIndex, sheet.Dimension.Columns].ToArray());
+                        for(int i = 2; i < sheet.Dimension.Rows + 1;i++)
+                        {
+                            List<object> list = new List<object>();
+                            for (int j = 1; j < sheet.Dimension.Columns + 1; j++)
+                                list.Add(sheet.Cells[i, j].Value);
+                            table.Rows.Add(list.ToArray());
+                        }    
                         tables.Add(table);
                     }
                     return tables.ToArray();

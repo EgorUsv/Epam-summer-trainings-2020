@@ -7,9 +7,9 @@ namespace SessionDatabase.Interfaces
 {
     public interface IDbCollection<T>
     {
-        T Read(int id);
+        T Read(long id);
         void Create(T item);
         void Update(T item);
-        void Delete(int id);
+        void Delete(long id);
     }
 }

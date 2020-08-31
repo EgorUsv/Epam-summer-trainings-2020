@@ -30,8 +30,8 @@ namespace SessionDatabase.Model.Context
             ExamMarks = new DbCollection<ExamMark>(GetCollection<ExamMark>(DataSet.Tables[typeof(ExamMark).Name + 's']), DataSet);
             Groups = new DbCollection<Group>(GetCollection<Group>(DataSet.Tables[typeof(Group).Name + 's']), DataSet);
             Students = new DbCollection<Student>(GetCollection<Student>(DataSet.Tables[typeof(Student).Name + 's']), DataSet);
-            Tests = new DbCollection<Credit>(GetCollection<Credit>(DataSet.Tables[typeof(Credit).Name + 's']), DataSet);
-            TestResults = new DbCollection<CreditResult>(GetCollection<CreditResult>(DataSet.Tables[typeof(CreditResult).Name + 's']), DataSet);
+            Credits = new DbCollection<Credit>(GetCollection<Credit>(DataSet.Tables[typeof(Credit).Name + 's']), DataSet);
+            CreditResults = new DbCollection<CreditResult>(GetCollection<CreditResult>(DataSet.Tables[typeof(CreditResult).Name + 's']), DataSet);
         }
         private ICollection<T> GetCollection<T>(DataTable dataTable) where T : BaseEntity
         {
@@ -56,7 +56,7 @@ namespace SessionDatabase.Model.Context
         public DbCollection<ExamMark> ExamMarks { get; set; }
         public DbCollection<Group> Groups { get; set; }
         public DbCollection<Student> Students { get; set; }
-        public DbCollection<Credit> Tests { get; set; }
-        public DbCollection<CreditResult> TestResults { get; set; }
+        public DbCollection<Credit> Credits { get; set; }
+        public DbCollection<CreditResult> CreditResults { get; set; }
     }
 }

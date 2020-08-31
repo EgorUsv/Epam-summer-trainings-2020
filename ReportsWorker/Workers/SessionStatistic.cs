@@ -1,4 +1,5 @@
 ﻿using ExcelWorker;
+using ReportsWorker.Interfaces;
 using SessionDatabase.Model.Context;
 using System;
 using System.Collections.Generic;
@@ -8,30 +9,30 @@ using System.Text;
 
 namespace ReportsWorker
 {
-    class EstimatesStatistic
+    public class SessionStatistic : IReport
     {
-        public static void MinAverageMaxMarkSave(DbContext context, string filePath, string sort = null)
+        public void SaveReport(DbContext context, string filePath, string sort = null)
         {
-            var data = new List<List<object>>();
-            foreach (string groupName in context.Groups.Collection.Select(x => x.GroupName))
+            var tables = new List<List<object>>();
+            foreach (string groupName in context.Groups.GetCollection().Select(x => x.GroupName))
             {
                 var examForGroup = GetMinAvgMaxResults(context, groupName);
                 if (examForGroup.Item1 != null && examForGroup.Item1.Count != 0)
-                    data.Add(examForGroup.Item1);
+                    tables.Add(examForGroup.Item1);
                 if (examForGroup.Item2 != null && examForGroup.Item2?.Count != 0)
-                    data.Add(examForGroup.Item2);
+                    tables.Add(examForGroup.Item2);
             }
-            var table = PrepareForSentSessionResult(data);
+            var table = PrepareForSentSessionResult(tables);
             if (table != null)
             {
-                if (sort == null)
+                if (sort != null)
                     table.DefaultView.Sort = sort;
                 ExcelWriter.SaveTables(new DataTable[] { table }, filePath);
             }
         }
         static (List<object>, List<object>) GetMinAvgMaxResults(DbContext context, string groupName)
         {
-            var group_exam = context.Exams.Collection.Join(context.Groups.Collection,
+            var group_exam = context.Exams.GetCollection().Join(context.Groups.GetCollection(),
                 a => a.GroupId,
                 b => b.Id,
                 (a, b) => new
@@ -41,7 +42,7 @@ namespace ReportsWorker
                     a.ExamDate,
                     b.GroupName
                 }).Where(x => x.GroupName == groupName);
-            var group_exam_mark = context.ExamMarks.Collection.Join(group_exam,
+            var group_exam_mark = context.ExamMarks.GetCollection().Join(group_exam,
                a => a.ExamId,
                b => b.ExamId,
                (a, b) => new

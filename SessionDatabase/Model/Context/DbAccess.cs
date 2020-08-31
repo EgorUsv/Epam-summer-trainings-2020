@@ -5,12 +5,13 @@ using System.Data;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace SessionDatabase.Model.Context
 {
     public class DataAccess : IDbAccess
     {
-        internal string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename='|DataDirectory|\SessionDatabase\Database\Database.mdf';Integrated Security=True";
+        internal string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Egor\source\repos\Egor_Usachev_Task6\SessionDatabase\Database\Database.mdf;Integrated Security=True";
         private readonly SqlConnection connection;
         public DataAccess(string scriptPath)
         {
@@ -47,10 +48,33 @@ namespace SessionDatabase.Model.Context
                 DataTable table = new DataTable();
                 adapter.Fill(table);
                 table.TableName = tableName;
+                table.PrimaryKey = new DataColumn[] { table.Columns[0] };
                 dataSet.Tables.Add(table);
             }
             connection.Close();
+            InitializeDataRelations(dataSet);
             return dataSet;
+        }
+        private void InitializeDataRelations(DataSet dataSet)
+        {
+            foreach(DataTable table in dataSet.Tables)
+            {
+                for(int i = 1; i < table.Columns.Count; i++)
+                {
+                    if (Regex.IsMatch(table.Columns[i].ColumnName, @"\w*Id$"))
+                    {
+                        string tableName = table.Columns[i].ColumnName.Substring(0, table.Columns[i].ColumnName.Length - 2);
+                        var relation = new DataRelation(table.TableName + "_FK_" + table.Columns[i].ColumnName,
+                            dataSet.Tables[tableName + "s"].Columns[0], table.Columns[i]);
+                        foreach (DataRow row in table.Rows)
+                        {
+                            if(dataSet.Tables[tableName + "s"].Rows.Find(row[0]) != null)
+                                row.SetParentRow(dataSet.Tables[tableName + "s"].Rows.Find(row[i]), relation);
+                        }
+                        dataSet.Relations.Add(relation);
+                    } 
+                }
+            }
         }
         private List<string> GetTableNames()
         {

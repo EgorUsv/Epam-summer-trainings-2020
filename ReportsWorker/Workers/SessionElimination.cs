@@ -1,17 +1,15 @@
 ﻿using ExcelWorker;
 using ReportsWorker.Interfaces;
 using SessionDatabase.Model.Context;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
 
 namespace ReportsWorker
 {
     public class SessionElimination : IReport
     {
-        public void SaveReport(DbContext context, string filePath,string sort = null)
+        public void SaveReport(DbContext context, string filePath, string sort = null)
         {
             var tables = new List<DataTable>();
             foreach (string groupName in context.Groups.GetCollection().Select(x => x.GroupName))
@@ -45,7 +43,7 @@ namespace ReportsWorker
         {
             List<string> students = new List<string>();
             foreach (var st in table)
-                if (((IEnumerable<int>)st[3]).Any(x=>x < 4) || ((IEnumerable<int>)st[4]).Any(x => x < 4))
+                if (((IEnumerable<int>)st[3]).Any(x => x < 4) || ((IEnumerable<int>)st[4]).Any(x => x < 4))
                     students.Add((string)st[0]);
             return students;
         }
@@ -53,7 +51,7 @@ namespace ReportsWorker
         {
             List<string> students = new List<string>();
             foreach (var st in table)
-                if (((IEnumerable<bool>)st[3]).Any(x=>!x)|| ((IEnumerable<bool>)st[4]).Any(x => !x))
+                if (((IEnumerable<bool>)st[3]).Any(x => !x) || ((IEnumerable<bool>)st[4]).Any(x => !x))
                     students.Add((string)st[0]);
             return students;
         }

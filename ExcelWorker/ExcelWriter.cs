@@ -1,10 +1,7 @@
 ﻿using OfficeOpenXml;
 using OfficeOpenXml.Style;
-using System;
-using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Linq;
 
 namespace ExcelWorker
 {
@@ -36,6 +33,6 @@ namespace ExcelWorker
                 package.SaveAs(new FileInfo(filePath));
             }
         }
-        
+
     }
 }

@@ -25,13 +25,20 @@ namespace SessionDatabase.Model.Context
             if (dataAccess == null)
                 throw new ArgumentNullException("dataAccess");
             DataSet = dataAccess.LoadDataSet();
-            Disciplines = new DbCollection<Discipline>(GetCollection<Discipline>(DataSet.Tables[typeof(Discipline).Name + 's']), DataSet);
-            Exams = new DbCollection<Exam>(GetCollection<Exam>(DataSet.Tables[typeof(Exam).Name + 's']), DataSet);
-            ExamMarks = new DbCollection<ExamMark>(GetCollection<ExamMark>(DataSet.Tables[typeof(ExamMark).Name + 's']), DataSet);
-            Groups = new DbCollection<Group>(GetCollection<Group>(DataSet.Tables[typeof(Group).Name + 's']), DataSet);
-            Students = new DbCollection<Student>(GetCollection<Student>(DataSet.Tables[typeof(Student).Name + 's']), DataSet);
-            Credits = new DbCollection<Credit>(GetCollection<Credit>(DataSet.Tables[typeof(Credit).Name + 's']), DataSet);
-            CreditResults = new DbCollection<CreditResult>(GetCollection<CreditResult>(DataSet.Tables[typeof(CreditResult).Name + 's']), DataSet);
+            Disciplines = new DbCollection<Discipline>(GetCollection<Discipline>(DataSet.Tables[typeof(Discipline).Name + 's']),
+                DataSet.Tables[typeof(Discipline).Name + "s"]);
+            Exams = new DbCollection<Exam>(GetCollection<Exam>(DataSet.Tables[typeof(Exam).Name + 's']), 
+                DataSet.Tables[typeof(Exam).Name + "s"]);
+            ExamMarks = new DbCollection<ExamMark>(GetCollection<ExamMark>(DataSet.Tables[typeof(ExamMark).Name + 's']), 
+                DataSet.Tables[typeof(ExamMark).Name + "s"]);
+            Groups = new DbCollection<Group>(GetCollection<Group>(DataSet.Tables[typeof(Group).Name + 's']), 
+                DataSet.Tables[typeof(Group).Name + "s"]);
+            Students = new DbCollection<Student>(GetCollection<Student>(DataSet.Tables[typeof(Student).Name + 's']), 
+                DataSet.Tables[typeof(Student).Name + "s"]);
+            Credits = new DbCollection<Credit>(GetCollection<Credit>(DataSet.Tables[typeof(Credit).Name + 's']), 
+                DataSet.Tables[typeof(Credit).Name + "s"]);
+            CreditResults = new DbCollection<CreditResult>(GetCollection<CreditResult>(DataSet.Tables[typeof(CreditResult).Name + 's']), 
+                DataSet.Tables[typeof(CreditResult).Name + "s"]);
         }
         private ICollection<T> GetCollection<T>(DataTable dataTable) where T : BaseEntity
         {

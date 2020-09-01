@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Data.Common;
 using System.Data.SqlClient;
 using System.IO;
 using System.Text;
@@ -9,14 +10,18 @@ using System.Text.RegularExpressions;
 
 namespace SessionDatabase.Model.Context
 {
-    public class DataAccess : IDbAccess
+    public class DbAccess : IDbAccess
     {
         internal string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Egor\source\repos\Egor_Usachev_Task6\SessionDatabase\Database\Database.mdf;Integrated Security=True";
         private readonly SqlConnection connection;
-        public DataAccess(string scriptPath)
+        public DbAccess(string scriptPath)
         {
             connection = new SqlConnection(connectionString);
             FillDataBaseIfEmpty(scriptPath);
+        }
+        public DbAccess()
+        {
+            connection = new SqlConnection(connectionString);
         }
         private void CreateConnection()
         {
@@ -88,8 +93,12 @@ namespace SessionDatabase.Model.Context
         public void Save(DataSet dataSet)
         {
             CreateConnection();
-            SqlDataAdapter adapter = new SqlDataAdapter("", connection);
-            adapter.Update(dataSet);
+            foreach(DataTable table in dataSet.Tables)
+            {
+                SqlDataAdapter dataAdapter = new SqlDataAdapter($"SELECT * FROM [{table.TableName}];", connection);
+                new SqlCommandBuilder(dataAdapter);
+                dataAdapter.Update(dataSet,table.TableName);
+            }
             connection.Close();
         }
     }

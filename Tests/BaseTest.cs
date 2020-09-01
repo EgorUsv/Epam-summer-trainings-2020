@@ -10,7 +10,7 @@ namespace Tests
         protected DbContext Context { get; } = DbContext.GetContext();
         public BaseTest()
         {
-            var dataAccess = new DataAccess(@"..\..\..\..\SessionDatabase\Database\script.sql");
+            var dataAccess = new DbAccess(@"..\..\..\..\SessionDatabase\Database\script.sql");
             Context.LoadContext(dataAccess);
         }
     }

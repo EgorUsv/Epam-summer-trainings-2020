@@ -12,14 +12,14 @@ namespace Tests.SessionDatabaseTests
 {
     public class CrudTest : BaseTest
     {
-        [Fact,Order(1)]
-        public void CreateTest1()
+        [Fact]
+        public void CreateNewRowTest()
         {
             Group group = new Group(7L, "testGroup");
             Context.Groups.Create(group);
         }
-        [Fact, Order(2)]
-        public void CreateTest2()
+        [Fact]
+        public void CreateExistingRowTest()
         {
             try
             {
@@ -32,27 +32,27 @@ namespace Tests.SessionDatabaseTests
                 Assert.True(true);
             }
         }
-        [Fact, Order(3)]
-        public void ReadTest1()
+        [Fact]
+        public void ReadExistingRowTest()
         {
             var result = Context.Groups.Read(2);
             Assert.True(result.GroupName == "IP21");
         }
-        [Fact, Order(4)]
-        public void ReadTest2()
+        [Fact]
+        public void ReadNonExistingEntryTest()
         {
             var result = Context.Groups.Read(4);
             Assert.True(result == null);
         }
-        [Fact, Order(5)]
-        public void UpdateTest1()
+        [Fact]
+        public void UpdateExistingRowTest()
         {
             Context.Groups.Update(new Group(2L, "IS12"));
             var result = Context.Groups.Read(2L);
             Assert.True(result.GroupName == "IS12");
         }
-        [Fact, Order(6)]
-        public void UpdateTest2()
+        [Fact]
+        public void UpdateNonExistingTest()
         {
             try
             {
@@ -64,8 +64,8 @@ namespace Tests.SessionDatabaseTests
                 Assert.True(true);
             }
         }
-        [Fact, Order(7)]
-        public void DeleteTest1()
+        [Fact]
+        public void DeleteExsistingRowTest()
         {
             try
             {
@@ -77,8 +77,8 @@ namespace Tests.SessionDatabaseTests
                 Assert.True(true);
             }
         }
-        [Fact, Order(8)]
-        public void DeleteTest2()
+        [Fact]
+        public void DeleteUnrelatedRowTest()
         {
             var before = Context.Groups.GetCollection().Count;
             Context.Groups.Create(new Group(100L, "GrName"));

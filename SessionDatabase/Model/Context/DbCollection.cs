@@ -11,11 +11,11 @@ namespace SessionDatabase.Model.Context
     public class DbCollection<T> : IDbCollection<T> where T : BaseEntity
     {
         List<T> Collection { get; set; }
-        DataSet DataSet { get; set; }
+        DataTable DataTable { get; set; }
 
-        public DbCollection(ICollection<T> collection, DataSet dataSet)
+        public DbCollection(ICollection<T> collection, DataTable dataTable)
         {
-            DataSet = dataSet;
+            DataTable = dataTable;
             Collection = (List<T>)collection;
         }
 
@@ -23,16 +23,15 @@ namespace SessionDatabase.Model.Context
         {
             return Collection.FirstOrDefault(x => x.Id == id);
         }
-
         public void Create(T item)
         {
-            DataSet.Tables[typeof(T).Name + 's'].Rows.Add(item.Deconstruct());
+            DataTable.Rows.Add(item.Deconstruct());
             Collection.Add(item);
         }
 
         public void Update(T item)
         {
-            var obj = DataSet.Tables[typeof(T).Name + 's'].Rows.Find(item.Id);
+            var obj = DataTable.Rows.Find(item.Id);
             if (obj != null)
             {
                 obj.ItemArray = item.Deconstruct();
@@ -46,17 +45,19 @@ namespace SessionDatabase.Model.Context
 
         public void Delete(long id)
         {
-            var obj = DataSet.Tables[typeof(T).Name + 's'].Rows.Find(id);
+            var obj = DataTable.Rows.Find(id);
             if (obj != null)
             {
                 bool relations = false;
-                foreach(DataRelation r in DataSet.Tables[typeof(T).Name + 's'].ChildRelations)
+                foreach(DataRelation r in DataTable.ChildRelations)
                 {
-                    if (DataSet.Tables[typeof(T).Name + 's'].Rows.Find(id).GetChildRows(r).Count() != 0)
+                    if (DataTable.Rows.Find(id).GetChildRows(r).Count() != 0)
                         relations = true;
                 }
                 if (!relations)
-                    DataSet.Tables[typeof(T).Name + 's'].Rows.Remove(obj);
+                {
+                    DataTable.Rows[DataTable.Rows.IndexOf(obj)].Delete();
+                }
                 else
                     throw new ConstraintException("ChildRelations is not null");
                 Collection.RemoveAll(x => x.Id == id);

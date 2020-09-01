@@ -1,17 +1,16 @@
 ﻿using ExcelWorker;
+using ReportsWorker.Interfaces;
 using SessionDatabase.Model.Context;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
-using System.Text;
-using System.Collections.Generic;
-using ReportsWorker.Interfaces;
 
 namespace ReportsWorker
 {
     public class SessionResults : IReport
     {
-        public void SaveReport(DbContext context,string filePath, string sort = null)
+        public void SaveReport(DbContext context, string filePath, string sort = null)
         {
             var tables = new List<DataTable>();
             foreach (string groupName in context.Groups.GetCollection().Select(x => x.GroupName))
@@ -23,7 +22,7 @@ namespace ReportsWorker
                 if (examTable != null)
                     tables.Add(examTable);
                 if (testTable != null)
-                   tables.Add(testTable);
+                    tables.Add(testTable);
             }
             if (sort != null)
                 foreach (var table in tables)
@@ -42,7 +41,7 @@ namespace ReportsWorker
                 foreach (string disNames in (IEnumerable<string>)collection[0][2])
                     dataTable.Columns.Add(disNames + " (II sem)  ");
                 if (knowType == "Exams")
-                    LoadExamsTable(dataTable,collection);
+                    LoadExamsTable(dataTable, collection);
                 else
                     LoadCreditTable(dataTable, collection);
                 return dataTable;
@@ -77,7 +76,7 @@ namespace ReportsWorker
         }
         internal static (string, List<List<object>>) GetExamResultsForGroup(DbContext context, string groupName)
         {
-            var groupExam = context.Exams.GetCollection().Join(context.Groups.GetCollection(), 
+            var groupExam = context.Exams.GetCollection().Join(context.Groups.GetCollection(),
                 a => a.GroupId, b => b.Id,
                 (a, b) => new
                 {
@@ -113,7 +112,7 @@ namespace ReportsWorker
                     a.LastName,
                     a.FirstName,
                     a.Patronymic,
-                    DisciplineNames1 = b.Where(x=>x.Term == 1).Select(x => x.DisciplineName),
+                    DisciplineNames1 = b.Where(x => x.Term == 1).Select(x => x.DisciplineName),
                     Marks1 = b.Where(x => x.Term == 1).Select(x => x.Mark),
                     DisciplineNames2 = b.Where(x => x.Term == 2).Select(x => x.DisciplineName),
                     Marks2 = b.Where(x => x.Term == 2).Select(x => x.Mark),

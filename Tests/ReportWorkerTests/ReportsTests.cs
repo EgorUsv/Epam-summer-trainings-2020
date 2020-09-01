@@ -9,6 +9,7 @@ using System.IO;
 using System.Text;
 using Tests.SessionDatabaseTests;
 using Xunit;
+using Assert = Xunit.Assert;
 
 namespace Tests.ReportWorkerTests
 {
@@ -18,7 +19,14 @@ namespace Tests.ReportWorkerTests
         [MemberData(nameof(GetData))]
         public void ReportsTest(IReport report,string filePath)
         {
-            report.SaveReport(Context, filePath);
+            try
+            {
+                report.SaveReport(Context, filePath);
+            }
+            catch
+            {
+                Assert.True(false);
+            }
         }
     }
 }

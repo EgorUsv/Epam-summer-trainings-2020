@@ -10,19 +10,34 @@ using System.Text.RegularExpressions;
 
 namespace SessionDatabase.Model.Context
 {
+    /// <summary>
+    /// Responsible for connecting and working with the database.
+    /// </summary>
     public class DbAccess : IDbAccess
     {
-        internal string connectionString = @"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=C:\Users\Egor\source\repos\Egor_Usachev_Task6\SessionDatabase\Database\Database.mdf;Integrated Security=True";
+        /// <summary>
+        /// Сontains the connection string
+        /// </summary>
+        private string ConnectionString { get; set; }
+        /// <summary>
+        /// Сontains a connection to the database.
+        /// </summary>
         private readonly SqlConnection connection;
-        public DbAccess(string scriptPath)
+        /// <summary>
+        /// Initializes DbAccess with a script to fill the database with 
+        /// data and a connection string.
+        /// </summary>
+        /// <param name="scriptPath"></param>
+        /// <param name="connectionString"></param>
+        public DbAccess(string scriptPath,string connectionString)
         {
-            connection = new SqlConnection(connectionString);
+            ConnectionString = connectionString;
+            connection = new SqlConnection(ConnectionString);
             FillDataBaseIfEmpty(scriptPath);
         }
-        public DbAccess()
-        {
-            connection = new SqlConnection(connectionString);
-        }
+        /// <summary>
+        /// Connects to the database if the connection is not open yet.
+        /// </summary>
         private void CreateConnection()
         {
             try
@@ -36,6 +51,10 @@ namespace SessionDatabase.Model.Context
                 throw new Exception("Can't connect to database.");
             }
         }
+        /// <summary>
+        /// Fill the database with data if it is empty.
+        /// </summary>
+        /// <param name="scriptPath"></param>
         private void FillDataBaseIfEmpty(string scriptPath)
         {
             CreateConnection();
@@ -43,6 +62,10 @@ namespace SessionDatabase.Model.Context
                 new SqlCommand(File.ReadAllText(@scriptPath), connection).ExecuteNonQuery();
             connection.Close();
         }
+        /// <summary>
+        /// Loads the database into Dataset.
+        /// </summary>
+        /// <returns></returns>
         public DataSet LoadDataSet()
         {
             CreateConnection();
@@ -60,6 +83,10 @@ namespace SessionDatabase.Model.Context
             InitializeDataRelations(dataSet);
             return dataSet;
         }
+        /// <summary>
+        /// Loads relationships between tables.
+        /// </summary>
+        /// <param name="dataSet"></param>
         private void InitializeDataRelations(DataSet dataSet)
         {
             foreach(DataTable table in dataSet.Tables)
@@ -81,6 +108,10 @@ namespace SessionDatabase.Model.Context
                 }
             }
         }
+        /// <summary>
+        /// Returns a list of table names.
+        /// </summary>
+        /// <returns></returns>
         private List<string> GetTableNames()
         {
             SqlCommand command = new SqlCommand("SELECT * FROM INFORMATION_SCHEMA.TABLES", connection);

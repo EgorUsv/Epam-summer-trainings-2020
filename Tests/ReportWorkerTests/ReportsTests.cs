@@ -13,7 +13,7 @@ using Assert = Xunit.Assert;
 
 namespace Tests.ReportWorkerTests
 {
-    public partial class ReportsTests : BaseTest
+    public partial class ReportsTests : BaseContext
     {
         [Xunit.Theory]
         [MemberData(nameof(GetData))]

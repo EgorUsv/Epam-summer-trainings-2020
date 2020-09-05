@@ -5,8 +5,16 @@ using System.IO;
 
 namespace ExcelWorker
 {
+    /// <summary>
+    /// The class is used to read data from xlsx files
+    /// </summary>
     public static class ExcelReader
     {
+        /// <summary>
+        /// Reads Excel files into an array of tables.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
         static public DataTable[] ReadTables(string filePath = "testFile.xlsx")
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;

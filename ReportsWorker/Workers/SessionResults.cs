@@ -8,8 +8,17 @@ using System.Linq;
 
 namespace ReportsWorker
 {
+    /// <summary>
+    /// Responsible for creating reports on session results.
+    /// </summary>
     public class SessionResults : IReport
     {
+        /// <summary>
+        /// Generates a report on the results of all sessions
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="filePath"></param>
+        /// <param name="sort"></param>
         public void SaveReport(DbContext context, string filePath, string sort = null)
         {
             var tables = new List<DataTable>();
@@ -17,8 +26,8 @@ namespace ReportsWorker
             {
                 var exam = GetExamResultsForGroup(context, groupName);
                 var test = GetTestResultsForGroup(context, groupName);
-                var examTable = PrepareForSentSessionResult(exam.Item2, exam.Item1, groupName);
-                var testTable = PrepareForSentSessionResult(test.Item2, test.Item1, groupName);
+                var examTable = GetTable(exam.Item2, exam.Item1, groupName);
+                var testTable = GetTable(test.Item2, test.Item1, groupName);
                 if (examTable != null)
                     tables.Add(examTable);
                 if (testTable != null)
@@ -29,7 +38,14 @@ namespace ReportsWorker
                     table.DefaultView.Sort = sort;
             ExcelWriter.SaveTables(tables.ToArray(), filePath);
         }
-        private static DataTable PrepareForSentSessionResult(List<List<object>> collection, string knowType, string groupName)
+        /// <summary>
+        /// Returns the input collection as a table.
+        /// </summary>
+        /// <param name="collection"></param>
+        /// <param name="knowType"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
+        private static DataTable GetTable(List<List<object>> collection, string knowType, string groupName)
         {
             if (collection != null && collection.Count > 0)
             {
@@ -48,6 +64,11 @@ namespace ReportsWorker
             }
             return null;
         }
+        /// <summary>
+        /// Loads exam data from a collection into a DataTable.
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <param name="collection"></param>
         private static void LoadExamsTable(DataTable dataTable, List<List<object>> collection)
         {
             foreach (var student in collection)
@@ -61,6 +82,11 @@ namespace ReportsWorker
                 dataTable.Rows.Add(stInfo.ToArray());
             }
         }
+        /// <summary>
+        /// Loads credit data from a collection into a DataTable.
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <param name="collection"></param>
         private static void LoadCreditTable(DataTable dataTable, List<List<object>> collection)
         {
             foreach (var student in collection)
@@ -74,10 +100,15 @@ namespace ReportsWorker
                 dataTable.Rows.Add(stInfo.ToArray());
             }
         }
+        /// <summary>
+        /// Returns a tuple with information about the knowledge test type fro group and a data collection.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
         internal static (string, List<List<object>>) GetExamResultsForGroup(DbContext context, string groupName)
         {
-            var groupExam = context.Exams.GetCollection().Join(context.Groups.GetCollection(),
-                a => a.GroupId, b => b.Id,
+            var groupExam = context.Exams.GetCollection().Join(context.Groups.GetCollection(), a => a.GroupId, b => b.Id,
                 (a, b) => new
                 {
                     ExamId = a.Id,
@@ -127,6 +158,11 @@ namespace ReportsWorker
             }
             return ("Exams", table);
         }
+        /// <summary>
+        /// Returns a tuple with information about the knowledge test type for group and a data collection.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="groupName"></param>
         internal static (string, List<List<object>>) GetTestResultsForGroup(DbContext context, string groupName)
         {
             var groupCredit = context.Credits.GetCollection().Join(context.Groups.GetCollection(), a => a.GroupId, b => b.Id,
@@ -156,9 +192,7 @@ namespace ReportsWorker
                     b.Term,
                 });
             var students = context.Students.GetCollection().Where(x => groupCreditDiscMark.Select(z => z.StudentId).Contains(x.Id));
-            var result = students.GroupJoin(groupCreditDiscMark,
-                a => a.Id,
-                b => b.StudentId,
+            var result = students.GroupJoin(groupCreditDiscMark, a => a.Id, b => b.StudentId,
                 (a, b) => new
                 {
                     a.LastName,

@@ -7,8 +7,17 @@ using System.Linq;
 
 namespace ReportsWorker
 {
+    /// <summary>
+    /// Responsible for creating reports on deductions.
+    /// </summary>
     public class SessionElimination : IReport
     {
+        /// <summary>
+        /// Generates a report on expelled students.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="filePath"></param>
+        /// <param name="sort"></param>
         public void SaveReport(DbContext context, string filePath, string sort = null)
         {
             var tables = new List<DataTable>();
@@ -26,6 +35,12 @@ namespace ReportsWorker
                     table.DefaultView.Sort = sort;
             ExcelWriter.SaveTables(tables.ToArray(), filePath);
         }
+        /// <summary>
+        /// Сreates a table from the list of expelled students.
+        /// </summary>
+        /// <param name="students"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
         static DataTable GetTable(List<string> students, string groupName)
         {
             if (students.Count != 0)
@@ -39,6 +54,11 @@ namespace ReportsWorker
             else
                 return null;
         }
+        /// <summary>
+        /// Returns a list of those who failed any exam.
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
         static List<string> GetExamExpulsionList(List<List<object>> table)
         {
             List<string> students = new List<string>();
@@ -47,6 +67,11 @@ namespace ReportsWorker
                     students.Add((string)st[0]);
             return students;
         }
+        /// <summary>
+        /// Returns a list of those who have not passed any credit.
+        /// </summary>
+        /// <param name="table"></param>
+        /// <returns></returns>
         static List<string> GetCreditExpulsionList(List<List<object>> table)
         {
             List<string> students = new List<string>();

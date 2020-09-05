@@ -8,6 +8,9 @@ using System.Text;
 
 namespace SessionDatabase.Model.Context
 {
+    /// <summary>
+    /// Represents the context of objects.
+    /// </summary>
     public class DbContext
     {
         static DbContext Context { get; set; }
@@ -20,6 +23,10 @@ namespace SessionDatabase.Model.Context
                 Context = new DbContext();
             return Context;
         }
+        /// <summary>
+        /// Loads data collections from data source.
+        /// </summary>
+        /// <param name="dataAccess"></param>
         public void LoadContext(IDbAccess dataAccess)
         {
             if (dataAccess == null)
@@ -40,6 +47,12 @@ namespace SessionDatabase.Model.Context
             CreditResults = new DbCollection<CreditResult>(GetCollection<CreditResult>(DataSet.Tables[typeof(CreditResult).Name + 's']), 
                 DataSet.Tables[typeof(CreditResult).Name + "s"]);
         }
+        /// <summary>
+        /// Factory method for generating objects.
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
         private ICollection<T> GetCollection<T>(DataTable dataTable) where T : BaseEntity
         {
             if (dataTable != null)
@@ -54,6 +67,10 @@ namespace SessionDatabase.Model.Context
             }
             return null;
         }
+        /// <summary>
+        /// Saves changes to the collection.
+        /// </summary>
+        /// <param name="dataAccess"></param>
         public void Save(IDbAccess dataAccess)
         {
             dataAccess.Save(DataSet);

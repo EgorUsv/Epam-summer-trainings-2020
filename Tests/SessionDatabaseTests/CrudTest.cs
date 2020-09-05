@@ -10,7 +10,7 @@ using Assert = Xunit.Assert;
 
 namespace Tests.SessionDatabaseTests
 {
-    public class CrudTest : BaseTest
+    public class CrudTest : BaseContext
     {
         [Fact]
         public void CreateNewRowTest()

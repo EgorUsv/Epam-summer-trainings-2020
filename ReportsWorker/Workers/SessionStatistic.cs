@@ -8,8 +8,17 @@ using System.Linq;
 
 namespace ReportsWorker
 {
+    /// <summary>
+    /// Responsible for statistical reports.
+    /// </summary>
     public class SessionStatistic : IReport
     {
+        /// <summary>
+        /// Saves statistical reports.
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="filePath"></param>
+        /// <param name="sort"></param>
         public void SaveReport(DbContext context, string filePath, string sort = null)
         {
             var tables = new List<List<object>>();
@@ -29,6 +38,12 @@ namespace ReportsWorker
                 ExcelWriter.SaveTables(new DataTable[] { table }, filePath);
             }
         }
+        /// <summary>
+        /// Generates a tuple with data about 1 and 2 semester of the given group
+        /// </summary>
+        /// <param name="context"></param>
+        /// <param name="groupName"></param>
+        /// <returns></returns>
         static (List<object>, List<object>) GetMinAvgMaxResults(DbContext context, string groupName)
         {
             var group_exam = context.Exams.GetCollection().Join(context.Groups.GetCollection(),
@@ -70,6 +85,11 @@ namespace ReportsWorker
             }
             return (firstSessionResult, secondSessionResult);
         }
+        /// <summary>
+        /// Сreates DataTable from collection.
+        /// </summary>
+        /// <param name="col"></param>
+        /// <returns></returns>
         static DataTable PrepareForSentSessionResult(List<List<object>> col)
         {
             if (col != null && col.Count > 0)

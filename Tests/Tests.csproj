@@ -50,6 +50,7 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Data.Linq" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ReportTests\BaseContext.cs" />
@@ -70,8 +71,14 @@
       <Project>{77c34291-5503-4322-92ef-ea25776645b2}</Project>
       <Name>ReportsWorker</Name>
     </ProjectReference>
+    <ProjectReference Include="..\SessionDatabase\SessionDatabase.csproj">
+      <Project>{4D1D4C74-CE3D-4A55-8DE1-BD9C8E98BBB5}</Project>
+      <Name>SessionDatabase</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="ReportTests\Reports\statsForSingle.xlsx" />
+  </ItemGroup>
   <Import Project="$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets" Condition="Exists('$(VSToolsPath)\TeamTest\Microsoft.TestTools.targets')" />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">

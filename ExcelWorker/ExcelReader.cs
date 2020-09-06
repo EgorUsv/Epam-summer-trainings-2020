@@ -9,9 +9,17 @@ using System.Threading.Tasks;
 
 namespace ReportsWorker
 {
+    /// <summary>
+    /// The class is used to read data from xlsx files
+    /// </summary>
     public static class ExcelReader
     {
-        static public DataTable[] ReadTables(string filePath = "testFile.xlsx")
+        /// <summary>
+        /// Reads Excel files into an array of tables.
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <returns></returns>
+        static public DataTable[] ReadTables(string filePath)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var fileinfo = new FileInfo(filePath);

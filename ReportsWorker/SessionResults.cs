@@ -1,22 +1,49 @@
 ﻿
-using ReportsWorker.BaseClasses;
+using SessionDatabase.Model;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Linq;
+using System.IO;
 using System.Linq;
 
 namespace ReportsWorker
 {
-    public class SessionResults : BaseReporter
+    /// <summary>
+    /// Responsible for issuing session results
+    /// </summary>
+    public class SessionResults
     {
+        /// <summary>
+        /// Contains database context.
+        /// </summary>
+        ModelDataContext Context { get; set; }
+        /// <summary>
+        /// Initializes the object with a database connection string.
+        /// </summary>
+        /// <param name="connString"></param>
+        public SessionResults(string @connString)
+        {
+            Context = new ModelDataContext(connString);
+        }
+        /// <summary>
+        /// Saves a report for all semesters.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="sort"></param>
         public void SaveReportStatisctic(string path,string sort = null)
         {
-            var tableDis = SaveReportByDisciplines(path, sort);
-            var tablePr = SaveReportByProfessors(path, sort);
+            var tableDis = GetReportByDisciplines();
+            var tablePr = GetReportByProfessors();
             ExcelWriter.SaveTables(new DataTable[] { tableDis,tablePr }, path);
         }
-        public void SaveReportByTerm(string path, int termNumber, int termYear, string sort = null)
+        /// <summary>
+        /// Saves a report for a specific semester.
+        /// </summary>
+        /// <param name="path"></param>
+        /// <param name="termNumber"></param>
+        /// <param name="termYear"></param>
+        public void SaveReportByTerm(string path, int termNumber, int termYear)
         {
             var dictDis = new Dictionary<string, Dictionary<string, double>>();
             var dictProf = new Dictionary<string, Dictionary<string, double>>();
@@ -25,23 +52,37 @@ namespace ReportsWorker
                 throw new ArgumentException("Incorrect termInfo");
             dictDis.Add($"{sem.TermNumber},{sem.TermYear}", AverageScoreByDisciplines(sem.TermYear, sem.TermNumber));
             dictProf.Add($"{sem.TermNumber},{sem.TermYear}", AverageScoreByProfessors(sem.TermYear, sem.TermNumber));
-            ExcelWriter.SaveTables(new DataTable[] { CreateTableDis(dictDis,$"{termNumber},{termYear}"), 
-                CreateTableProf(dictProf, $"{termNumber},{termYear}") },path);
+            ExcelWriter.SaveTables(new DataTable[] { CreateTableDis(dictDis,"Discipline_statistic"), 
+                CreateTableProf(dictProf, "Professors_statistic") },path);
         }
-        DataTable SaveReportByDisciplines(string path, string sort = null)
+        /// <summary>
+        /// Creates a report by discipline
+        /// </summary>
+        /// <returns></returns>
+        DataTable GetReportByDisciplines()
         {
             var dictByDisciplines = new Dictionary<string, Dictionary<string, double>>();
             foreach (var sem in Context.SessionsInfo)
                 dictByDisciplines.Add($"{sem.TermNumber},{sem.TermYear}", AverageScoreByDisciplines(sem.TermYear, sem.TermNumber));
             return CreateTableDis(dictByDisciplines,"Discipline_statistic");
         }
-        DataTable SaveReportByProfessors(string path, string sort = null)
+        /// <summary>
+        /// Сreates report by professors.
+        /// </summary>
+        /// <returns></returns>
+        DataTable GetReportByProfessors()
         {
             var dictByProfessors = new Dictionary<string, Dictionary<string, double>>();
             foreach (var sem in Context.SessionsInfo)
                 dictByProfessors.Add($"{sem.TermNumber},{sem.TermYear}", AverageScoreByProfessors(sem.TermYear, sem.TermNumber));
             return CreateTableProf(dictByProfessors,"Professors_statistic");
         }
+        /// <summary>
+        /// Converts the resulting collection to a DataTable.
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         DataTable CreateTableDis(Dictionary<string, Dictionary<string, double>> value,string tableName)
         {
             DataTable table = new DataTable(tableName);
@@ -64,6 +105,12 @@ namespace ReportsWorker
             }
             return table;
         }
+        /// <summary>
+        /// Converts the resulting collection to a DataTable
+        /// </summary>
+        /// <param name="value"></param>
+        /// <param name="tableName"></param>
+        /// <returns></returns>
         DataTable CreateTableProf(Dictionary<string, Dictionary<string, double>> value, string tableName)
         {
             DataTable table = new DataTable(tableName);
@@ -86,6 +133,12 @@ namespace ReportsWorker
             }
             return table;
         }
+        /// <summary>
+        /// Returns a collection containing information about disciplines.
+        /// </summary>
+        /// <param name="termYear"></param>
+        /// <param name="termNumber"></param>
+        /// <returns></returns>
         Dictionary<string, double> AverageScoreByDisciplines(long termYear,long termNumber)
         {
             var result =  from ex in Context.Exams
@@ -107,6 +160,12 @@ namespace ReportsWorker
             }
             return dict;
         }
+        /// <summary>
+        /// Returns a collection containing information about professors.
+        /// </summary>
+        /// <param name="termYear"></param>
+        /// <param name="termNumber"></param>
+        /// <returns></returns>
         Dictionary<string, double> AverageScoreByProfessors(long termYear, long termNumber)
         {
             var result =  from ex in Context.Exams

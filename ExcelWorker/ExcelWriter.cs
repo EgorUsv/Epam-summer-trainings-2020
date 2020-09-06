@@ -10,8 +10,16 @@ using System.Threading.Tasks;
 
 namespace ReportsWorker
 {
+    /// <summary>
+    /// The class is used to write data to xlsx files
+    /// </summary>
     public static class ExcelWriter
     {
+        /// <summary>
+        /// Writes excel files to an array of tables.
+        /// </summary>
+        /// <param name="dataTables"></param>
+        /// <param name="filePath"></param>
         public static void SaveTables(DataTable[] dataTables, string filePath)
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -33,11 +41,11 @@ namespace ReportsWorker
                             sheet.Cells[i, j + 1].Value = table.Rows[i - 2][j];
                         }
                     sheet.Cells.AutoFitColumns();
-                    sheet.Tables.Add(new ExcelAddressBase(1, 1, table.Rows.Count + 1, table.Columns.Count), table.TableName);
+                    sheet.Tables.Add(new ExcelAddressBase(1, 1, table.Rows.Count + 1, table.Columns.Count),
+                        table.TableName);
                 }
                 package.SaveAs(new FileInfo(filePath));
             }
         }
-
     }
 }

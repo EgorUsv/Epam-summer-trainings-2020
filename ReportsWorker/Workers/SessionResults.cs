@@ -34,8 +34,11 @@ namespace ReportsWorker
                     tables.Add(testTable);
             }
             if (sort != null)
-                foreach (var table in tables)
-                    table.DefaultView.Sort = sort;
+                for (int i = 0; i < tables.Count; i++)
+                {
+                    tables[i].DefaultView.Sort = sort;
+                    tables[i] = tables[i].DefaultView.ToTable();
+                }
             ExcelWriter.SaveTables(tables.ToArray(), filePath);
         }
         /// <summary>

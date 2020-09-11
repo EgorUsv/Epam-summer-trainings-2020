@@ -34,7 +34,10 @@ namespace ReportsWorker
             if (table != null)
             {
                 if (sort != null)
+                {
                     table.DefaultView.Sort = sort;
+                    table = table.DefaultView.ToTable();
+                }
                 ExcelWriter.SaveTables(new DataTable[] { table }, filePath);
             }
         }

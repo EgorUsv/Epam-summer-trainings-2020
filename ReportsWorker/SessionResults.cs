@@ -35,6 +35,8 @@ namespace ReportsWorker
         {
             var tableDis = GetReportByDisciplines();
             var tablePr = GetReportByProfessors();
+            SortTables.SortDataTable(tableDis, sort);
+            SortTables.SortDataTable(tablePr, sort);
             ExcelWriter.SaveTables(new DataTable[] { tableDis,tablePr }, path);
         }
         /// <summary>

@@ -1,5 +1,6 @@
 ﻿using ExcelWorker;
 using ReportsWorker.Interfaces;
+using ReportsWorker.Workers;
 using SessionDatabase.Model.Context;
 using System;
 using System.Collections.Generic;
@@ -33,11 +34,7 @@ namespace ReportsWorker
             var table = PrepareForSentSessionResult(tables);
             if (table != null)
             {
-                if (sort != null)
-                {
-                    table.DefaultView.Sort = sort;
-                    table = table.DefaultView.ToTable();
-                }
+                SortTables.SortDataTable(table, sort);
                 ExcelWriter.SaveTables(new DataTable[] { table }, filePath);
             }
         }

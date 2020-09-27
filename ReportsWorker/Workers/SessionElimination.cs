@@ -31,7 +31,7 @@ namespace ReportsWorker
                 if (result != null)
                     tables.Add(result);
             }
-            SortTables.SortDataTables(tables, sort);
+            tables = SortTables.SortDataTables(tables, sort);
             ExcelWriter.SaveTables(tables.ToArray(), filePath);
         }
         /// <summary>

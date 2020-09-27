@@ -1,13 +1,8 @@
-﻿using NUnit.Framework;
+﻿using GroupDocs.Comparison;
+using NUnit.Framework;
 using ReportsWorker;
 using ReportsWorker.Interfaces;
-using SessionDatabase.Model.Context;
-using SessionDatabase.Model.Tables;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Text;
-using Tests.SessionDatabaseTests;
 using Xunit;
 using Assert = Xunit.Assert;
 
@@ -17,11 +12,16 @@ namespace Tests.ReportWorkerTests
     {
         [Xunit.Theory]
         [MemberData(nameof(GetData))]
-        public void ReportsTest(IReport report,string filePath)
+        public void ReportsTest(IReport report,string filePath,string testFilePath)
         {
             try
             {
                 report.SaveReport(Context, filePath);
+                using Comparer comparer = new Comparer(filePath);
+                comparer.Add(testFilePath);
+                comparer.Compare();
+                if (comparer.GetChanges().Length != 0)
+                    throw new Exception("Documents are not equal");
             }
             catch
             {

@@ -34,7 +34,7 @@ namespace ReportsWorker
             var table = PrepareForSentSessionResult(tables);
             if (table != null)
             {
-                SortTables.SortDataTable(table, sort);
+                table = SortTables.SortDataTable(table, sort);
                 ExcelWriter.SaveTables(new DataTable[] { table }, filePath);
             }
         }

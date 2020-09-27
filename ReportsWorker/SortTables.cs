@@ -15,11 +15,19 @@ namespace ReportsWorker
                 table.DefaultView.Sort = sort;
             return table.DefaultView.ToTable();
         }
-        public static void SortDataTables(ICollection<DataTable> tables, string sort)
+        public static List<DataTable> SortDataTables(ICollection<DataTable> tables, string sort)
         {
             if (sort != null)
-                for (int i = 0; i < tables.Count(); i++)
-                    SortDataTable(tables.ElementAt(i), sort);
+            {
+                DataTable[] sortedArr = tables.ToArray();
+                for (int i = 0; i < sortedArr.Length; i++)
+                {
+                    sortedArr[i].DefaultView.Sort = sort;
+                    sortedArr[i] = sortedArr[i].DefaultView.ToTable();
+                }
+                return new List<DataTable>(sortedArr);
+            }
+            return tables.ToList();
         }
     }
 }

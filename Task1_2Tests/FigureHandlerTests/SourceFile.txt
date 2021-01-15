@@ -1,6 +1,0 @@
-﻿triangle 3 4 5
-square 6
-rectangle 10 6
-square 8
-triangle 14 16 17
-rectangle 20 10
